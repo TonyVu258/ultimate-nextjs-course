@@ -1,23 +1,41 @@
-import { auth, signOut } from "@/auth";
+import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
+import { questions } from "@/constants/questions";
 import ROUTES from "@/constants/routes";
+import Link from "next/link";
 
-const Home = async () => {
-  const session = await auth();
+interface SearchParams {
+  searchParams: Promise<{
+    [key:string]:string
+  }>
+}
+
+const Home = async ({searchParams} : SearchParams) => {
+  const {query = ''} = await searchParams;
+
+  const fillteredQuestions = questions.filter((question) => {
+    return question.title.toLowerCase().includes(query?.toLowerCase());
+  });
   return (
-  <>
-    <h1 className="text-3xl text-violet-700 font-black">Wellcome to the world of NextJS</h1>
-    <form className="px-10 pt-[100px]"
-        action={async () => {
-          "use server"
-          await signOut({ redirectTo: ROUTES.SIGN_IN});
-        }}
-    >
-      <Button type="submit" className="bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Log out
-      </Button>
-    </form>
-  </>    
+    <>
+      <section className="w-full flex flex-col-reverse md:flex-row justify-between items-center gap-4">
+        <h1 className="h1-bold text-dark100_light900">All Questions</h1>
+        <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900" asChild>
+          <Link href={ROUTES.ASK_QUESTION}>
+            Ask a Question
+          </Link>
+        </Button>
+      </section>
+      <section className="mt-11">
+      <LocalSearch route='/' imgSrc='/icons/search.svg' placeholder='Search for Questions here...' otherClasses="flex-1"/>
+      </section>
+      {/* Home Filter */}
+      <div className="mt-10 flex w-full flex-col gap-6">
+        {fillteredQuestions.map((question) => (
+          <h1 key={question.title}>{question.title}</h1>
+          ))}
+      </div>
+    </>
   )
 }
 
