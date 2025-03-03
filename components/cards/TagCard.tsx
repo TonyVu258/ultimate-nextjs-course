@@ -7,9 +7,9 @@ import { getDeviconClassName } from '@/lib/utils'
 interface Props {
     _id: string
     name: string
-    questions: number
-    showCount: boolean
-    compact: boolean
+    questions?: number
+    showCount?: boolean
+    compact?: boolean
 }
 
 const TagCard = ({ _id, name, questions, showCount, compact }: Props) => {

@@ -1,21 +1,22 @@
+import QuestionCard from "@/components/cards/QuestionCard";
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { questions } from "@/constants/questions";
 import ROUTES from "@/constants/routes";
 import Link from "next/link";
 
-interface SearchParams {
-  searchParams: Promise<{
-    [key:string]:string
-  }>
-}
+
 
 const Home = async ({searchParams} : SearchParams) => {
-  const {query = ''} = await searchParams;
+  const {query = '', filter = ''} = await searchParams;
 
-  const fillteredQuestions = questions.filter((question) => {
-    return question.title.toLowerCase().includes(query?.toLowerCase());
+  const filteredQuestions = questions.filter((question) => {
+    const matchesQuery = question.title.toLowerCase().includes(query?.toLowerCase());
+    const matchesFilter = filter ? question.tags.some(tag => tag.name.toLowerCase() === filter) : true;
+    return matchesQuery && matchesFilter;
   });
+
   return (
     <>
       <section className="w-full flex flex-col-reverse md:flex-row justify-between items-center gap-4">
@@ -29,10 +30,10 @@ const Home = async ({searchParams} : SearchParams) => {
       <section className="mt-11">
       <LocalSearch route='/' imgSrc='/icons/search.svg' placeholder='Search for Questions here...' otherClasses="flex-1"/>
       </section>
-      {/* Home Filter */}
+      <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
-        {fillteredQuestions.map((question) => (
-          <h1 key={question.title}>{question.title}</h1>
+        {filteredQuestions.map((question) => (
+          <QuestionCard key={question.title} question={question} />
           ))}
       </div>
     </>
