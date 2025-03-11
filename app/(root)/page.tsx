@@ -4,11 +4,23 @@ import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { questions } from "@/constants/questions";
 import ROUTES from "@/constants/routes";
+import { api } from "@/lib/api";
+import handleError from "@/lib/handlers/error";
 import { SearchParams } from "@/types/global";
 import Link from "next/link";
 
+const test = async ()  => {
+  try {
+    return await api.user.getAll()
+  }
+  catch (error) {
+    return handleError(error, "api")
+  }
+}
 
 const Home = async ({searchParams} : SearchParams) => {
+  console.log(await test());
+  
   const {query = '', filter = ''} = await searchParams;
 
   const filteredQuestions = questions.filter((question) => {
