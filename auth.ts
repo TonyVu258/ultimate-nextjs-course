@@ -12,7 +12,7 @@ import { IAccountDoc } from "./database/account.model";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [GitHub, Google],
   debug: process.env.NODE_ENV === "development",
-  secret: process.env.NEXTAUTH_SECRET,
+  // secret: process.env.AUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
       session.user.id = token.sub as string;
