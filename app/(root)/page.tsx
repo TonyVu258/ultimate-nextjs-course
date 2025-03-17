@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const test = async ()  => {
   try {
-    return await api.user.getAll()
+    return await api.users.getAll()
   }
   catch (error) {
     return handleError(error, "api")

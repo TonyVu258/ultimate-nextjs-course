@@ -18,7 +18,7 @@ export const api = {
         body: JSON.stringify({ user, provider, providerAccountId }),
       }),
   },
-    user:{
+    users:{
         getAll: () => fetchHandler(`${API_BASE_URL}/users`),
         getById: (id: string) => fetchHandler(`${API_BASE_URL}/users/${id}`),
         getByEmail: (email: string) => fetchHandler(`${API_BASE_URL}/users/email`, {

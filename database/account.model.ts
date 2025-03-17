@@ -13,7 +13,7 @@ export interface IAccountDoc extends IAccount, Document {}
 const AccountSchema = new Schema<IAccount>({
     userId: {type: Schema.Types.ObjectId, ref: "User", required: true},
     name: {type: String, required: true},
-    image: {type: String},
+    image: {type: String, required: false},
     password: {type: String},
     provider: {type:String, required: true},
     providerAccountId: {type:String, required: true},

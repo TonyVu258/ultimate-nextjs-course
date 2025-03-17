@@ -31,15 +31,15 @@ interface SearchParams {
     }>
   }
 
-type ActionResponse<T = null> = {
+  type ActionResponse<T = null> = {
     success: boolean;
-    error?: {
-        message: string;
-        details?: Record<string, string[]>;
-    };
     data?: T;
-    static?: number;
-}
+    error?: {
+      message: string;
+      details?: Record<string, string[]>;
+    };
+    status?: number;
+  };
 
 type SuccessResponse<T = null> = ActionResponse<T> & {success: true};
 type ErrorResponse = ActionResponse<undefined> & {success: false};
