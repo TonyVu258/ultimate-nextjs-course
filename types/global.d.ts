@@ -1,23 +1,23 @@
 import { NextResponse } from "next/server"
 
 interface Questions {
-    [x: string]: any
-    question: {
-        _id: string,
-        title: string,
-        description: string,
-        tags: Tag[],
-        author: Author
-        upvotes: number,
-        answers: number,
-        views: number,
-        createdAt: Date
-    }
+  _id: string;
+  title: string;
+  content: string;
+  tags: Tag[];
+  author: Author;
+  createdAt: Date;
+  upvotes: number;
+  downvotes: number;
+  answers: number;
+  views: number;
+  createdAt: Date;
 }
 
 interface Tag {
-    _id: string,
-    name: string,
+  _id: string;
+  name: string;
+  questions?: number;
 }
 
 interface Author {
@@ -48,7 +48,7 @@ type ErrorResponse = ActionResponse<undefined> & {success: false};
 type APIErrorResponse = NextResponse<ErrorResponse>;
 type APIResponse<T = null> = NextResponse<SuccessResponse<T> | ErrorResponse>;
 
-interface RouteParamas {
+interface RouteParams {
   params: Promise<Record<string, string>>;
   searchParams: Promise<Record<string, string>>;
 }

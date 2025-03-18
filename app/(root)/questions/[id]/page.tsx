@@ -1,7 +1,7 @@
-import { RouteParamas } from '@/types/global'
+import { RouteParams } from '@/types/global'
 import React from 'react'
 
-const QuestionDetails = async ({params} : RouteParamas) => {
+const QuestionDetails = async ({params} : RouteParams) => {
   const {id} = await params;
 
   return <div>Question Page: {id}</div>;

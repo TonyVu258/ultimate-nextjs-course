@@ -9,22 +9,14 @@ import handleError from "@/lib/handlers/error";
 import { SearchParams } from "@/types/global";
 import Link from "next/link";
 
-const test = async ()  => {
-  try {
-    return await api.users.getAll()
-  }
-  catch (error) {
-    return handleError(error, "api")
-  }
-}
 
 const Home = async ({searchParams} : SearchParams) => {
-  const {query = '', filter = ''} = await searchParams;
+  const { page, pageSize, query, filter } = await searchParams;
 
   const filteredQuestions = questions.filter((question) => {
-    const matchesQuery = question.title.toLowerCase().includes(query?.toLowerCase());
-    const matchesFilter = filter ? question.tags.some(tag => tag.name.toLowerCase() === filter) : true;
-    return matchesQuery && matchesFilter;
+  const matchesQuery = question.title.toLowerCase().includes(query?.toLowerCase());
+  const matchesFilter = filter ? question.tags.some(tag => tag.name.toLowerCase() === filter) : true;
+  return matchesQuery && matchesFilter;
   });
 
   return (
