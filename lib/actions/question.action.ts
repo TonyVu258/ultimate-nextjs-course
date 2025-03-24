@@ -1,4 +1,3 @@
-import { Query } from './../../node_modules/sift/lib/core.d';
 "use server";
 
 import { ActionResponse, ErrorResponse, PaginatedSearchParams, Questions } from "@/types/global";
@@ -197,46 +196,48 @@ export async function getQuestion(
 
 export async function getQuestions(
   params: PaginatedSearchParams
-): Promise<ActionResponse<{questions : Questions[]; isNext: boolean}>> {
+): Promise<ActionResponse<{ questions: Questions[]; isNext: boolean }>> {
   const validationResult = await action({
     params,
     schema: PaginatedSearchParamsSchema,
-  })
+  });
 
-  if(validationResult instanceof Error) {
+  if (validationResult instanceof Error) {
     return handleError(validationResult) as ErrorResponse;
   }
 
-  const {page = 1, pageSize = 10, query, filter} = params;
+  const { page = 1, pageSize = 10, query, filter } = params;
   const skip = (Number(page) - 1) * pageSize;
   const limit = Number(pageSize);
 
-  const filterQuery:FilterQuery<typeof Question> = {};
+  const filterQuery: FilterQuery<typeof Question> = {};
 
   if (filter === "recommended") {
     return { success: true, data: { questions: [], isNext: false } };
   }
-  if(query){
+
+  if (query) {
     filterQuery.$or = [
-      {title: {$regex: new RegExp(query, "i")}},
-      {content: {$regex: new RegExp(query, "i")}},]
+      { title: { $regex: new RegExp(query, "i") } },
+      { content: { $regex: new RegExp(query, "i") } },
+    ];
   }
 
-  let sortCriteria = {}
+  let sortCriteria = {};
 
-  switch(filter) {
-    case 'newest':
-      sortCriteria = {createdAt: -1}
+  switch (filter) {
+    case "newest":
+      sortCriteria = { createdAt: -1 };
       break;
-    case 'unanswered':
+    case "unanswered":
       filterQuery.answers = 0;
-      sortCriteria = {createdAt: -1}
+      sortCriteria = { createdAt: -1 };
       break;
-    case 'popular':
-      sortCriteria = {upvotes: -1}
+    case "popular":
+      sortCriteria = { upvotes: -1 };
       break;
     default:
-      sortCriteria = {createdAt: -1}
+      sortCriteria = { createdAt: -1 };
       break;
   }
 
@@ -244,12 +245,12 @@ export async function getQuestions(
     const totalQuestions = await Question.countDocuments(filterQuery);
 
     const questions = await Question.find(filterQuery)
-    .populate("tags",'name')
-    .populate("author", "name image")
-    .lean()
-    .sort(sortCriteria)
-    .skip(skip)
-    .limit(limit);
+      .populate("tags", "name")
+      .populate("author", "name image")
+      .lean()
+      .sort(sortCriteria)
+      .skip(skip)
+      .limit(limit);
 
     const isNext = totalQuestions > skip + questions.length;
 
@@ -257,8 +258,7 @@ export async function getQuestions(
       success: true,
       data: { questions: JSON.parse(JSON.stringify(questions)), isNext },
     };
-  } catch (e) {
-    return handleError(e) as ErrorResponse;
+  } catch (error) {
+    return handleError(error) as ErrorResponse;
   }
-
 }

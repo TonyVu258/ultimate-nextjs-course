@@ -14,7 +14,7 @@ interface Questions {
   createdAt: Date;
 }
 
-interface Tag {
+interface Tags {
   _id: string;
   name: string;
   questions?: number;
