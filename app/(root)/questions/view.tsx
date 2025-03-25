@@ -14,11 +14,10 @@ const View = ({ questionId }: { questionId: string }) => {
         }else{
             toast.error(result.error?.message || "Something went wrong");
         }
-
-        useEffect(() =>{
-            handleIncrement();
-        },[])
     }
+    useEffect(() =>{
+        handleIncrement();
+    },[])
   return null
 }
 
