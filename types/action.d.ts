@@ -10,27 +10,32 @@ interface SignInWithOAuthParams {
     };
   }
 
-  interface AuthCredentials {
-    name: string;
-    username: string;
-    email: string;
-    password: string;
-  }
+interface AuthCredentials {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+}
 
-  interface CreateQuestionParams{
-    title: string;
-    content: string;
-    tags: string[];
-  }
+interface CreateQuestionParams{
+  title: string;
+  content: string;
+  tags: string[];
+}
 
-  interface EditQuestionParams extends CreateQuestionParams {
-    questionId: string;
-  }
+interface EditQuestionParams extends CreateQuestionParams {
+  questionId: string;
+}
 
-  interface GetQuestionParams {
-    questionId: string;
-  }
+interface GetQuestionParams {
+  questionId: string;
+}
 
-  interface GetTagQuestionsParams extends Omit<GetTagQuestionsSchema, "filter"> {
-    tagId: string;
-  }
+interface GetTagQuestionsParams extends Omit<GetTagQuestionsSchema, "filter"> {
+  tagId: string;
+}
+
+
+interface IncrementViewsParams {
+  questionId: string;
+}
