@@ -1,3 +1,4 @@
+import { GetTagQuestionsSchema } from './../lib/validations';
 interface SignInWithOAuthParams {
     provider: "github" | "google";
     providerAccountId: string;
@@ -28,4 +29,8 @@ interface SignInWithOAuthParams {
 
   interface GetQuestionParams {
     questionId: string;
+  }
+
+  interface GetTagQuestionsParams extends Omit<GetTagQuestionsSchema, "filter"> {
+    tagId: string;
   }
