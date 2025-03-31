@@ -39,3 +39,8 @@ interface GetTagQuestionsParams extends Omit<GetTagQuestionsSchema, "filter"> {
 interface IncrementViewsParams {
   questionId: string;
 }
+
+interface CreateAnswerParams {
+  questionId: string;
+  content: string;
+}
