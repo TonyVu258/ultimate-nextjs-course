@@ -4,15 +4,17 @@ import Preview from '@/components/editor/Preview';
 import AnswerForm from '@/components/forms/AnswerForm';
 import Metric from '@/components/Metric';
 import UserAvatar from '@/components/UserAvatar';
+import Votes from '@/components/votes/Votes';
 import ROUTES from '@/constants/routes';
 import { getAnswers } from '@/lib/actions/answer.action';
 import { getQuestion, incrementViews } from '@/lib/actions/question.action';
+import { hasVoted } from '@/lib/actions/vote.action';
 import { formatNumber, getTimeStamp } from '@/lib/utils';
 import { RouteParams, Tags } from '@/types/global'
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { after } from 'next/server';
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const sampleQuestion = {
   id: "q123",
@@ -99,6 +101,8 @@ const QuestionDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
   const { success, data: question } = await getQuestion({ questionId: id });
 
+  
+
   // const [_, { success, data: question }] = await Promise.all([
   //   await incrementViews({ questionId: id }),
   //   await getQuestion({ questionId: id }),
@@ -122,6 +126,11 @@ const QuestionDetails = async ({ params }: RouteParams) => {
 
   const { author, createdAt, answers, views, tags, content, title } = question || sampleQuestion;
 
+  const hasVotedPromise = hasVoted({
+    targetId: question?._id ?? "",
+    targetType: "question",
+  });
+
   return (
     <>
       <div className='flex-start w-full flex-col'>
@@ -138,7 +147,15 @@ const QuestionDetails = async ({ params }: RouteParams) => {
             </Link>
           </div>
           <div className='flex justify-end'>
-            <p>Votes</p>
+          <Suspense fallback={<div>Loading...</div>}>
+              <Votes
+                targetType="question"
+                upvotes={question?.upvotes ?? 0}
+                downvotes={question?.downvotes ?? 0}
+                targetId={question?._id ?? ""}
+                hasVotedPromise={hasVotedPromise}
+              />
+            </Suspense>
           </div>
         </div>
         <h2 className='h2-semibold text-dark200_light900 mt-3.5 w-full'>
