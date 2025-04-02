@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/-ShadCN_UI-black?style=for-the-badge&logoColor=white&logo=shadcnui&color=000000" alt="shadcnui" />
     <img src="https://img.shields.io/badge/-Open_AI-black?style=for-the-badge&logoColor=white&logo=openai&color=412991" alt="openai" />
   </div>
-
+</br>
 A full-stack Q&A platform inspired by StackOverflow, built with Next.js 15 and enhanced with real-time features and secure authentication.
 
 ---
@@ -21,11 +21,17 @@ A full-stack Q&A platform inspired by StackOverflow, built with Next.js 15 and e
 
 ---
 
+##  <a name="about">📚 About Me</a>
+This project was built as part of the Ultimate Next.js 15 Course by JavaScript Mastery, completed in March 2025. I’m Tony Vu, a Frontend Developer with 3+ years in PHP/JS and a passion for ReactJS/NextJS. Check my CV or connect with me at thienvu258.it@gmail.com for collaboration or opportunities!
+
+---
+
 ## 🤖 <a name="introduction">Introduction</a>
 *DevFlow* is a modern, community-driven Q&A platform built from scratch to showcase my skills in Next.js 15 and ReactJS. Inspired by StackOverflow, it lets users ask questions, post answers, and authenticate securely with OAuth. Leveraging Next.js Server Components for optimized server-side rendering and TailwindCSS for sleek styling, this project demonstrates my ability to deliver fast, responsive, and user-friendly web applications.  
 
 Perfect for developers looking to explore a full-stack Next.js project—or for recruiters seeking a candidate with hands-on frontend expertise!
 
+Demo project: https://ultimate-nextjs-course-neon.vercel.app/
 ---
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
@@ -137,5 +143,4 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
 
-##  <a name="about">📚 About Me</a>
-This project was built as part of the Ultimate Next.js 15 Course by JavaScript Mastery, completed in March 2025. I’m Tony Vu, a Frontend Developer with 3+ years in PHP/JS and a passion for ReactJS/NextJS. Check my CV or connect with me at thienvu258.it@gmail.com for collaboration or opportunities!
+
