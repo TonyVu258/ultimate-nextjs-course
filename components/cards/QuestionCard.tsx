@@ -4,8 +4,13 @@ import Link from 'next/link'
 import React from 'react'
 import TagCard from './TagCard'
 import Metric from '../Metric'
+import { Questions, Tags } from '@/types/global'
 
-const QuestionCard = ({ question : {_id, title, description, tags, author, upvotes, answers, views, createdAt} }:Question) => {
+interface Props {
+    question: Questions;
+  }
+
+const QuestionCard = ({ question : {_id, title, content, tags, author, upvotes, answers, views, createdAt} }:Props) => {
   return (
     <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>
         <div className='flex flex-col-reverse items-start justify-between gap-5 sm:flex-row'>
@@ -17,7 +22,7 @@ const QuestionCard = ({ question : {_id, title, description, tags, author, upvot
             </div>
         </div>
         <div className='mt-3.5 flex w-full flex-wrap gap-2'>
-            {tags.map((tag: Tag) =>(
+            {tags.map((tag: Tags) =>(
                 <TagCard
                 key={tag._id}
                 _id={tag._id}
